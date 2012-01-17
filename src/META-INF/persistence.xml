@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <persistence>
 	<persistence-unit name="JPAManager" transaction-type="RESOURCE_LOCAL">
 		<class>de.tipit.server.model.entity.BetCommunityEO</class>
@@ -23,6 +22,7 @@
 		<class>de.tipit.server.model.entity.WinnerBetCommentEO</class>
 		<class>de.tipit.server.model.entity.WinnerBetEO</class>
 		<class>de.tipit.server.model.entity.WinnerTeamCommentEO</class>
+
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 			<property name="hibernate.show_sql" value="true" />
