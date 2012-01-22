@@ -1,14 +1,12 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
+@Root(name = "UserContact")
+public class UserContactTO {
 
-@XmlRootElement(name = "UserContact")
-public class UserContactTO implements Serializable {
-
-    private static final long serialVersionUID = 2439016237949369735L;
-
+    @Attribute(required = false)
     private String mailAddress;
 
     public String getMailAddress() {

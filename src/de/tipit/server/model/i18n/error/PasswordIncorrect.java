@@ -1,8 +1,9 @@
 package de.tipit.server.model.i18n.error;
 
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
-public class PasswordIncorrect extends BaseError {
+public class PasswordIncorrect extends GeneralError {
 
     private static final long serialVersionUID = -6857832366168457852L;
 

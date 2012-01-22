@@ -1,49 +1,54 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement(name = "Team")
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+@Root(name = "Team")
 public class TeamTO extends TeamDataTO {
 
-    private static final long serialVersionUID = -6399467933664382142L;
+    @ElementList(required = false)
+    private List<TournamentTypeNameTO> allowedTournTypes;
 
-    private TournamentTypeNameTO[] allowedTournTypes;
+    @ElementList(required = false)
+    private List<GameResultDataTO> homeGames;
 
-    private GameResultDataTO[] homeGames;
+    @ElementList(required = false)
+    private List<GameResultDataTO> awayGames;
 
-    private GameResultDataTO[] awayGames;
+    @ElementList(required = false)
+    private List<TournamentDescrTO> wonTournaments;
 
-    private TournamentDescrTO[] wonTournaments;
-
-    public TournamentTypeNameTO[] getAllowedTournTypes() {
+    public List<TournamentTypeNameTO> getAllowedTournTypes() {
         return allowedTournTypes;
     }
 
-    public void setAllowedTournTypes(TournamentTypeNameTO[] allowedTournTypes) {
+    public void setAllowedTournTypes(List<TournamentTypeNameTO> allowedTournTypes) {
         this.allowedTournTypes = allowedTournTypes;
     }
 
-    public GameResultDataTO[] getHomeGames() {
+    public List<GameResultDataTO> getHomeGames() {
         return homeGames;
     }
 
-    public void setHomeGames(GameResultDataTO[] homeGames) {
+    public void setHomeGames(List<GameResultDataTO> homeGames) {
         this.homeGames = homeGames;
     }
 
-    public GameResultDataTO[] getAwayGames() {
+    public List<GameResultDataTO> getAwayGames() {
         return awayGames;
     }
 
-    public void setAwayGames(GameResultDataTO[] awayGames) {
+    public void setAwayGames(List<GameResultDataTO> awayGames) {
         this.awayGames = awayGames;
     }
 
-    public TournamentDescrTO[] getWonTournaments() {
+    public List<TournamentDescrTO> getWonTournaments() {
         return wonTournaments;
     }
 
-    public void setWonTournaments(TournamentDescrTO[] wonTournaments) {
+    public void setWonTournaments(List<TournamentDescrTO> wonTournaments) {
         this.wonTournaments = wonTournaments;
     }
 }

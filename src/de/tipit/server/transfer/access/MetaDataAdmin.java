@@ -1,6 +1,6 @@
 package de.tipit.server.transfer.access;
 
-import java.rmi.RemoteException;
+import java.util.List;
 
 import de.tipit.server.transfer.data.ContextTO;
 import de.tipit.server.transfer.data.SessionIdTO;
@@ -21,44 +21,44 @@ import de.tipit.server.transfer.data.TournamentTypeTO;
 
 public interface MetaDataAdmin {
 
-    SportNameTO[] getSports(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    List<SportNameTO> getSports(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    TournamentTypeNameTO[] findTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeSearchDataTO tournTypeSearchData) throws RemoteException;
+    List<TournamentTypeNameTO> findTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeSearchDataTO tournTypeSearchData)
+            throws GeneralError;
 
-    TeamNameTO[] findTeams(ContextTO context, SessionIdTO sessionId, TeamSearchDataTO teamSearchData) throws RemoteException;
+    List<TeamNameTO> findTeams(ContextTO context, SessionIdTO sessionId, TeamSearchDataTO teamSearchData) throws GeneralError;
 
-    TournamentTypeNameTO[] getTournamentTypesForTeams(ContextTO context, SessionIdTO sessionId, TeamIdTO[] teamIdList) throws RemoteException;
+    List<TournamentTypeNameTO> getTournamentTypesForTeams(ContextTO context, SessionIdTO sessionId, List<TeamIdTO> teamIdList) throws GeneralError;
 
-    TeamNameTO[] getTeamsForTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO[] tournTypeIdList) throws RemoteException;
+    List<TeamNameTO> getTeamsForTournamentTypes(ContextTO context, SessionIdTO sessionId, List<TournamentTypeIdTO> tournTypeIdList) throws GeneralError;
 
-    SportTO readSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws RemoteException;
+    SportTO readSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws GeneralError;
 
-    TournamentTypeTO readTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws RemoteException;
+    TournamentTypeTO readTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws GeneralError;
 
-    TeamTO readTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws RemoteException;
+    TeamTO readTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws GeneralError;
 
-    SportIdTO createOrUpdateSport(ContextTO context, SessionIdTO sessionId, SportDataTO sportData) throws RemoteException;
+    SportIdTO createOrUpdateSport(ContextTO context, SessionIdTO sessionId, SportDataTO sportData) throws GeneralError;
 
-    void deleteSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws RemoteException;
+    Void deleteSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws GeneralError;
 
-    TournamentTypeIdTO createOrUpdateTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeDataArgumentTO tournTypeData)
-            throws RemoteException;
+    TournamentTypeIdTO createOrUpdateTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeDataArgumentTO tournTypeData) throws GeneralError;
 
-    void deleteTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws RemoteException;
+    Void deleteTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws GeneralError;
 
-    TeamIdTO createOrUpdateTeam(ContextTO context, SessionIdTO sessionId, TeamDataTO teamData) throws RemoteException;
+    TeamIdTO createOrUpdateTeam(ContextTO context, SessionIdTO sessionId, TeamDataTO teamData) throws GeneralError;
 
-    void deleteTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws RemoteException;
+    Void deleteTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws GeneralError;
 
-    void addAllowedTournamentTypesToTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, TournamentTypeIdTO[] tournTypeIdList)
-            throws RemoteException;
+    Void addAllowedTournamentTypesToTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, List<TournamentTypeIdTO> tournTypeIdList)
+            throws GeneralError;
 
-    void removeAllowedTournamentTypesFromTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, TournamentTypeIdTO[] tournTypeIdList)
-            throws RemoteException;
+    Void removeAllowedTournamentTypesFromTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, List<TournamentTypeIdTO> tournTypeIdList)
+            throws GeneralError;
 
-    void addAllowedTeamsToTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, TeamIdTO[] teamIdList)
-            throws RemoteException;
+    Void addAllowedTeamsToTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, List<TeamIdTO> teamIdList)
+            throws GeneralError;
 
-    void removeAllowedTeamsFromTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, TeamIdTO[] teamIdList)
-            throws RemoteException;
+    Void removeAllowedTeamsFromTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, List<TeamIdTO> teamIdList)
+            throws GeneralError;
 }

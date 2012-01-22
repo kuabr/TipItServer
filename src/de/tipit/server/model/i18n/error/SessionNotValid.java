@@ -1,10 +1,11 @@
 package de.tipit.server.model.i18n.error;
 
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
-public class SessionNotValid extends BaseError {
+public class SessionNotValid extends GeneralError {
 
-    private static final long serialVersionUID = -545614762980209753L;
+    private static final long serialVersionUID = 126629413941408114L;
 
     private static final String messageDE = "Session ist nicht (mehr) gültig. Bitte neu einloggen!";
 

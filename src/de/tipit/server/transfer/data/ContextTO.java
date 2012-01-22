@@ -1,18 +1,16 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "Context")
-public class ContextTO implements Serializable {
-
-    private static final long serialVersionUID = -7961232298529384731L;
+@Root(name = "Context")
+public class ContextTO {
 
     public static enum Language {
         DE, EN
     }
 
+    @Element(required = false)
     private Language language;
 
     public Language getLanguage() {

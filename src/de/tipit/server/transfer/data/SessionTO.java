@@ -1,16 +1,18 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "Session")
+@Root(name = "Session")
 public class SessionTO extends SessionIdTO {
 
-    private static final long serialVersionUID = 529447940810546223L;
-
+    @Element(required = false)
     private String userName;
 
+    @Element(required = false)
     private Boolean isAdmin;
 
+    @Element(required = false)
     private Boolean isGuest;
 
     public String getUserName() {

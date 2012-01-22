@@ -1,41 +1,45 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "GameBet")
+@Root(name = "GameBet")
 public class GameBetTO extends GameBetDataWithoutGameTO {
 
-	private static final long serialVersionUID = 2459667331589637896L;
+    @Element(required = false)
+    private UserNameTO user;
 
-	private UserNameTO user;
+    @ElementList(required = false)
+    private List<CommentTO> comments;
 
-	private CommentTO[] comments;
+    @Element(required = false)
+    private Date creation;
 
-	private Date creation;
+    public UserNameTO getUser() {
+        return user;
+    }
 
-	public UserNameTO getUser() {
-		return user;
-	}
+    public void setUser(UserNameTO user) {
+        this.user = user;
+    }
 
-	public void setUser(UserNameTO user) {
-		this.user = user;
-	}
+    public List<CommentTO> getComments() {
+        return comments;
+    }
 
-	public CommentTO[] getComments() {
-		return comments;
-	}
+    public void setComments(List<CommentTO> comments) {
+        this.comments = comments;
+    }
 
-	public void setComments(CommentTO[] comments) {
-		this.comments = comments;
-	}
+    public Date getCreation() {
+        return creation;
+    }
 
-	public Date getCreation() {
-		return creation;
-	}
-
-	public void setCreation(Date creation) {
-		this.creation = creation;
-	}
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
 }

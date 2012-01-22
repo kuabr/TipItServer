@@ -1,31 +1,31 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
+@Root(name = "GeneralSearchData")
+public class GeneralSearchData {
 
-@XmlRootElement(name = "GeneralSearchData")
-public class GeneralSearchData implements Serializable {
+    @Attribute(required = false)
+    Integer maxNrOfResults;
 
-	private static final long serialVersionUID = 6418998867517274757L;
+    @Element(required = false)
+    String searchText;
 
-	Integer maxNrOfResults;
+    public Integer getMaxNrOfResults() {
+        return maxNrOfResults;
+    }
 
-	String searchText;
+    public void setMaxNrOfResults(Integer maxNrOfResults) {
+        this.maxNrOfResults = maxNrOfResults;
+    }
 
-	public Integer getMaxNrOfResults() {
-		return maxNrOfResults;
-	}
+    public String getSearchText() {
+        return searchText;
+    }
 
-	public void setMaxNrOfResults(Integer maxNrOfResults) {
-		this.maxNrOfResults = maxNrOfResults;
-	}
-
-	public String getSearchText() {
-		return searchText;
-	}
-
-	public void setSearchText(String searchText) {
-		this.searchText = searchText;
-	}
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
 }

@@ -1,7 +1,7 @@
 package de.tipit.server.model.work;
 
-import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -21,6 +21,7 @@ import de.tipit.server.model.i18n.error.UserNotFound;
 import de.tipit.server.transfer.access.Analysis;
 import de.tipit.server.transfer.access.BetResult;
 import de.tipit.server.transfer.access.CommunityAdmin;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.access.MetaDataAdmin;
 import de.tipit.server.transfer.access.RulesAdmin;
 import de.tipit.server.transfer.access.TournamentAdmin;
@@ -118,7 +119,7 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public SessionTO renewSession(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public SessionTO renewSession(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         // save current date and time
         Date currentDate = new Date();
 
@@ -148,7 +149,7 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public SessionTO doLogin(ContextTO context, UserAccountTO userAccount, LoginParameterTO loginParameter) throws RemoteException {
+    public SessionTO doLogin(ContextTO context, UserAccountTO userAccount, LoginParameterTO loginParameter) throws GeneralError {
         // check data
         if (userAccount == null) {
             throw new UserNotFound(context);
@@ -231,12 +232,12 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public SessionTO doLoginAsGuest(ContextTO context) throws RemoteException {
+    public SessionTO doLoginAsGuest(ContextTO context) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void doLogout(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public Void doLogout(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         // save current date and time
         Date currentDate = new Date();
 
@@ -249,10 +250,13 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
         // destroy session
         sessionManager.destroySession(context, session, currentDate);
+
+        // no result given
+        return null;
     }
 
     @Override
-    public UserIdTO createUser(ContextTO context, UserDataTO userData) throws RemoteException {
+    public UserIdTO createUser(ContextTO context, UserDataTO userData) throws GeneralError {
         // check data
         dataVerifier.checkData(context, userData);
 
@@ -300,135 +304,135 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public void updateUser(ContextTO context, SessionIdTO sessionId, UserDataTO userData) throws RemoteException {
+    public Void updateUser(ContextTO context, SessionIdTO sessionId, UserDataTO userData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void resetPassword(ContextTO context, UserContactTO userContact) throws RemoteException {
+    public Void resetPassword(ContextTO context, UserContactTO userContact) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void setInactive(ContextTO context, SessionIdTO sessionId, Boolean isInactive) throws RemoteException {
+    public Void setInactive(ContextTO context, SessionIdTO sessionId, Boolean isInactive) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void setDisabled(ContextTO context, SessionIdTO sessionId, UserIdTO userId, Boolean isDisabled) throws RemoteException {
+    public Void setDisabled(ContextTO context, SessionIdTO sessionId, UserIdTO userId, Boolean isDisabled) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserTO readOwnUser(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public UserTO readOwnUser(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserTO readUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws RemoteException {
+    public UserTO readUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentDescrTO[] getModeratedTournaments(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<TournamentDescrTO> getModeratedTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentDescrTO[] getOwnTournaments(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<TournamentDescrTO> getOwnTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserNameTO[] findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws RemoteException {
+    public List<UserNameTO> findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentIdTO createOrUpdateTournament(ContextTO context, SessionIdTO sessionId, TournamentDataArgumentTO tournData) throws RemoteException {
+    public TournamentIdTO createOrUpdateTournament(ContextTO context, SessionIdTO sessionId, TournamentDataArgumentTO tournData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public Void deleteTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public Boolean isTournamentModerator(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public Boolean isTournamentModerator(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addModeratorToTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws RemoteException {
+    public Void addModeratorToTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeModeratorFromTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws RemoteException {
+    public Void removeModeratorFromTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public TournamentRoundIdTO createOrUpdateTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundDataArgumentTO tournRoundData)
-            throws RemoteException {
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundIdTO tournRoundId) throws RemoteException {
+    public Void deleteTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundIdTO tournRoundId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public MatchDayIdTO createOrUpdateMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayDataArgumentTO matchDayData) throws RemoteException {
+    public MatchDayIdTO createOrUpdateMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayDataArgumentTO matchDayData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayIdTO matchDayId) throws RemoteException {
+    public Void deleteMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayIdTO matchDayId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameIdTO createOrUpdateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws RemoteException {
+    public GameIdTO createOrUpdateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteGame(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws RemoteException {
+    public Void deleteGame(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public RuleBookNameTO[] findRuleBooks(ContextTO context, SessionIdTO sessionId, RuleBookSearchDataTO ruleBookSearchData) throws RemoteException {
+    public List<RuleBookNameTO> findRuleBooks(ContextTO context, SessionIdTO sessionId, RuleBookSearchDataTO ruleBookSearchData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public RuleBookNameTO[] getNotFinalRuleBooks(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<RuleBookNameTO> getNotFinalRuleBooks(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public RuleBookNameTO[] getOwnRuleBooks(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<RuleBookNameTO> getOwnRuleBooks(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public Integer calculatePointsForStoredRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId, Integer homeResult, Integer awayResult,
-            Integer averageHomeResultBet, Integer averageAwayResultBet, Integer homeResultBet, Integer awayResultBet) throws RemoteException {
+            Integer averageHomeResultBet, Integer averageAwayResultBet, Integer homeResultBet, Integer awayResultBet) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public Integer calculatePointsForNewRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookDataTO ruleBookData, Integer homeResult, Integer awayResult,
-            Integer averageHomeResultBet, Integer averageAwayResultBet, Integer homeResultBet, Integer awayResultBet) throws RemoteException {
+            Integer averageHomeResultBet, Integer averageAwayResultBet, Integer homeResultBet, Integer awayResultBet) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public RuleBookIdTO createOrUpdateRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookDataTO ruleBookData) throws RemoteException {
+    public RuleBookIdTO createOrUpdateRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookDataTO ruleBookData) throws GeneralError {
         // check data
         dataVerifier.checkData(context, ruleBookData);
 
@@ -513,169 +517,169 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public void deleteRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId) throws RemoteException {
+    public Void deleteRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public SportNameTO[] getSports(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<SportNameTO> getSports(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentTypeNameTO[] findTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeSearchDataTO tournTypeSearchData)
-            throws RemoteException {
+    public List<TournamentTypeNameTO> findTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeSearchDataTO tournTypeSearchData)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TeamNameTO[] findTeams(ContextTO context, SessionIdTO sessionId, TeamSearchDataTO teamSearchData) throws RemoteException {
+    public List<TeamNameTO> findTeams(ContextTO context, SessionIdTO sessionId, TeamSearchDataTO teamSearchData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentTypeNameTO[] getTournamentTypesForTeams(ContextTO context, SessionIdTO sessionId, TeamIdTO[] teamIdList) throws RemoteException {
+    public List<TournamentTypeNameTO> getTournamentTypesForTeams(ContextTO context, SessionIdTO sessionId, List<TeamIdTO> teamIdList) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TeamNameTO[] getTeamsForTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO[] tournTypeIdList) throws RemoteException {
+    public List<TeamNameTO> getTeamsForTournamentTypes(ContextTO context, SessionIdTO sessionId, List<TournamentTypeIdTO> tournTypeIdList) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public SportTO readSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws RemoteException {
+    public SportTO readSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentTypeTO readTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws RemoteException {
+    public TournamentTypeTO readTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TeamTO readTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws RemoteException {
+    public TeamTO readTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public SportIdTO createOrUpdateSport(ContextTO context, SessionIdTO sessionId, SportDataTO sportData) throws RemoteException {
+    public SportIdTO createOrUpdateSport(ContextTO context, SessionIdTO sessionId, SportDataTO sportData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws RemoteException {
+    public Void deleteSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public TournamentTypeIdTO createOrUpdateTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeDataArgumentTO tournTypeData)
-            throws RemoteException {
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws RemoteException {
+    public Void deleteTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TeamIdTO createOrUpdateTeam(ContextTO context, SessionIdTO sessionId, TeamDataTO teamData) throws RemoteException {
+    public TeamIdTO createOrUpdateTeam(ContextTO context, SessionIdTO sessionId, TeamDataTO teamData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void deleteTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws RemoteException {
+    public Void deleteTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addAllowedTournamentTypesToTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, TournamentTypeIdTO[] tournTypeIdList)
-            throws RemoteException {
+    public Void addAllowedTournamentTypesToTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, List<TournamentTypeIdTO> tournTypeIdList)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeAllowedTournamentTypesFromTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, TournamentTypeIdTO[] tournTypeIdList)
-            throws RemoteException {
+    public Void removeAllowedTournamentTypesFromTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, List<TournamentTypeIdTO> tournTypeIdList)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addAllowedTeamsToTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, TeamIdTO[] teamIdList)
-            throws RemoteException {
+    public Void addAllowedTeamsToTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, List<TeamIdTO> teamIdList)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeAllowedTeamsFromTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, TeamIdTO[] teamIdList)
-            throws RemoteException {
+    public Void removeAllowedTeamsFromTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, List<TeamIdTO> teamIdList)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public BetCommunityNameTO[] getBetCommunitiesForUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws RemoteException {
+    public List<BetCommunityNameTO> getBetCommunitiesForUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public BetCommunityNameTO[] getBetCommunitiesForUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws RemoteException {
+    public List<BetCommunityNameTO> getBetCommunitiesForUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public BetCommunityNameTO[] getModeratingBetCommunities(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<BetCommunityNameTO> getModeratingBetCommunities(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public Boolean isBetCommunityModerator(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws RemoteException {
+    public Boolean isBetCommunityModerator(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupNameTO[] findUserGroups(ContextTO context, SessionIdTO sessionId, UserGroupSearchDataTO userGroupSearchData) throws RemoteException {
+    public List<UserGroupNameTO> findUserGroups(ContextTO context, SessionIdTO sessionId, UserGroupSearchDataTO userGroupSearchData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupNameTO[] getUserGroupsForUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws RemoteException {
+    public List<UserGroupNameTO> getUserGroupsForUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupNameTO[] getParticipatingUserGroups(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<UserGroupNameTO> getParticipatingUserGroups(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupNameTO[] getModeratingUserGroups(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<UserGroupNameTO> getModeratingUserGroups(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public Boolean isUserGroupModerator(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws RemoteException {
+    public Boolean isUserGroupModerator(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public RuleBookNameTO[] getAllFinalRuleBooks(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<RuleBookNameTO> getAllFinalRuleBooks(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupTO readUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws RemoteException {
+    public UserGroupTO readUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public RuleBookTO readRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId) throws RemoteException {
+    public RuleBookTO readRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public BetCommunityIdTO createOrUpdateBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityDataArgumentTO betCommunityData)
-            throws RemoteException {
+            throws GeneralError {
         // check data
         dataVerifier.checkData(context, betCommunityData);
 
@@ -746,47 +750,46 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public void deleteBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws RemoteException {
+    public Void deleteBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addUserGroupToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserGroupIdTO userGroupId)
-            throws RemoteException {
+    public Void addUserGroupToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserGroupIdTO userGroupId)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeUserGroupFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserGroupIdTO userGroupId)
-            throws RemoteException {
+    public Void removeUserGroupFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserGroupIdTO userGroupId)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addTournamentToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
-            throws RemoteException {
+    public Void addTournamentToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeTournamentFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
-            throws RemoteException {
+    public Void removeTournamentFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addModeratorToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserIdTO modId) throws RemoteException {
+    public Void addModeratorToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserIdTO modId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeModeratorFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserIdTO modId)
-            throws RemoteException {
+    public Void removeModeratorFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserIdTO modId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupIdTO createOrUpdateUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupDataTO userGroupData) throws RemoteException {
+    public UserGroupIdTO createOrUpdateUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupDataTO userGroupData) throws GeneralError {
         // check data
         dataVerifier.checkData(context, userGroupData);
 
@@ -845,286 +848,286 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
     }
 
     @Override
-    public void deleteUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws RemoteException {
+    public Void deleteUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addUserToUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO userId) throws RemoteException {
+    public Void addUserToUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO userId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeUserFromUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO userId) throws RemoteException {
+    public Void removeUserFromUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO userId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void joinUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws RemoteException {
+    public Void joinUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void leaveUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws RemoteException {
+    public Void leaveUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void addModeratorToUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO modId) throws RemoteException {
+    public Void addModeratorToUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO modId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeModeratorFromUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO modId) throws RemoteException {
+    public Void removeModeratorFromUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO modId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentDescrTO[] getOpenParticipatingTournaments(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<TournamentDescrTO> getOpenParticipatingTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentDescrTO[] getAllOpenTournaments(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<TournamentDescrTO> getAllOpenTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public Boolean hasMissingWinnerBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public Boolean hasMissingWinnerBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public WinnerBetTO[] getWinnerBetsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<WinnerBetTO> getWinnerBetsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TeamNameTO[] getTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<TeamNameTO> getTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameDataResultTO[] getGamesWithMissingBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameDataResultTO> getGamesWithMissingBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameTO[] getGamesWithPopulatedBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameTO> getGamesWithPopulatedBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameTO[] getGamesWithForgottenBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameTO> getGamesWithForgottenBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameDataResultTO[] getGamesWithMissingResultForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameDataResultTO> getGamesWithMissingResultForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameTO[] getGamesWithPopulatedResultForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameTO> getGamesWithPopulatedResultForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameDataResultTO[] getGamesWithMissingBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws RemoteException {
+    public List<GameDataResultTO> getGamesWithMissingBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameTO[] getGamesWithPopulatedBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws RemoteException {
+    public List<GameTO> getGamesWithPopulatedBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameTO[] getGamesWithForgottenBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws RemoteException {
+    public List<GameTO> getGamesWithForgottenBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameDataResultTO[] getGamesWithMissingResultForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws RemoteException {
+    public List<GameDataResultTO> getGamesWithMissingResultForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameTO[] getGamesWithPopulatedResultForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws RemoteException {
+    public List<GameTO> getGamesWithPopulatedResultForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void setWinnerBet(ContextTO context, SessionIdTO sessionId, WinnerBetDataArgumentTO winnerBetData) throws RemoteException {
+    public Void setWinnerBet(ContextTO context, SessionIdTO sessionId, WinnerBetDataArgumentTO winnerBetData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void setGameBet(ContextTO context, SessionIdTO sessionId, GameBetDataWithoutGameTO gameBetData, GameIdTO gameId) throws RemoteException {
+    public Void setGameBet(ContextTO context, SessionIdTO sessionId, GameBetDataWithoutGameTO gameBetData, GameIdTO gameId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void setWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, TeamIdTO winnerTeamId) throws RemoteException {
+    public Void setWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, TeamIdTO winnerTeamId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void delWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public Void delWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void setGameResult(ContextTO context, SessionIdTO sessionId, GameResultDataTO gameResultData) throws RemoteException {
+    public Void setGameResult(ContextTO context, SessionIdTO sessionId, GameResultDataTO gameResultData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void delGameResult(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws RemoteException {
+    public Void delGameResult(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForWinnerBet(ContextTO context, SessionIdTO sessionId, WinnerBetIdTO winnerBetId, CommentDataTO commentData)
-            throws RemoteException {
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, CommentDataTO commentData)
-            throws RemoteException {
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForGameBet(ContextTO context, SessionIdTO sessionId, GameBetIdTO gameBetId, CommentDataTO commentData)
-            throws RemoteException {
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForGameResult(ContextTO context, SessionIdTO sessionId, GameIdTO gameId, CommentDataTO commentData)
-            throws RemoteException {
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeCommentForWinnerBet(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws RemoteException {
+    public Void removeCommentForWinnerBet(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeCommentForWinnerTeam(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws RemoteException {
+    public Void removeCommentForWinnerTeam(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeCommentForGameBet(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws RemoteException {
+    public Void removeCommentForGameBet(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void removeCommentForGameResult(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws RemoteException {
+    public Void removeCommentForGameResult(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameDataResultTO[] getGamesWithMissingTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameDataResultTO> getGamesWithMissingTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public void updateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws RemoteException {
+    public Void updateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public BetCommunityNameTO[] findBetCommunities(ContextTO context, SessionIdTO sessionId, BetCommunitySearchDataTO betCommunitySearchData)
-            throws RemoteException {
+    public List<BetCommunityNameTO> findBetCommunities(ContextTO context, SessionIdTO sessionId, BetCommunitySearchDataTO betCommunitySearchData)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public BetCommunityNameTO[] getParticipatingBetCommunities(ContextTO context, SessionIdTO sessionId) throws RemoteException {
+    public List<BetCommunityNameTO> getParticipatingBetCommunities(ContextTO context, SessionIdTO sessionId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public BetCommunityTO readBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws RemoteException {
+    public BetCommunityTO readBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentDescrTO[] findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws RemoteException {
+    public List<TournamentDescrTO> findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameDataResultTO[] getGamesForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException {
+    public List<GameDataResultTO> getGamesForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameWithPointsTO[] getGamesWithPointsByTournament(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
-            Boolean onlyGamesWithResult) throws RemoteException {
+    public List<GameWithPointsTO> getGamesWithPointsByTournament(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            TournamentIdTO tournId, Boolean onlyGamesWithResult) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public GameWithPointsTO[] getGamesWithPointsByPeriod(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, PeriodTO period,
-            Boolean onlyGamesWithResult) throws RemoteException {
+    public List<GameWithPointsTO> getGamesWithPointsByPeriod(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, PeriodTO period,
+            Boolean onlyGamesWithResult) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserPointsTO[] getTournamentRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
-            Boolean onlyUsersWithBet) throws RemoteException {
+    public List<UserPointsTO> getTournamentRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
+            Boolean onlyUsersWithBet) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupPointsTO[] getTournamentRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
-            throws RemoteException {
+    public List<UserGroupPointsTO> getTournamentRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            TournamentIdTO tournId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserPointsTO[] getTournamentRoundRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
-            TournamentRoundIdTO tournRoundId, Boolean onlyUsersWithBet) throws RemoteException {
+    public List<UserPointsTO> getTournamentRoundRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            TournamentRoundIdTO tournRoundId, Boolean onlyUsersWithBet) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupPointsTO[] getTournamentRoundRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
-            TournamentRoundIdTO tournRoundId) throws RemoteException {
+    public List<UserGroupPointsTO> getTournamentRoundRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            TournamentRoundIdTO tournRoundId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserPointsTO[] getMatchDayRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId,
-            Boolean onlyUsersWithBet) throws RemoteException {
+    public List<UserPointsTO> getMatchDayRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId,
+            Boolean onlyUsersWithBet) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupPointsTO[] getMatchDayRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId)
-            throws RemoteException {
+    public List<UserGroupPointsTO> getMatchDayRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            MatchDayIdTO matchDayId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserPointsTO[] getAllTimeRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, Boolean onlyUsersWithBet)
-            throws RemoteException {
+    public List<UserPointsTO> getAllTimeRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, Boolean onlyUsersWithBet)
+            throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 
     @Override
-    public UserGroupPointsTO[] getAllTimeRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws RemoteException {
+    public List<UserGroupPointsTO> getAllTimeRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
         throw new NotYetImplemented(context); // TODO
     }
 }

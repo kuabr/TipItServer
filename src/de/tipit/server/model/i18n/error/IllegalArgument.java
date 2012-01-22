@@ -1,8 +1,9 @@
 package de.tipit.server.model.i18n.error;
 
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
-public class IllegalArgument extends BaseError {
+public class IllegalArgument extends GeneralError {
 
     private static final long serialVersionUID = 3333047031287149006L;
 

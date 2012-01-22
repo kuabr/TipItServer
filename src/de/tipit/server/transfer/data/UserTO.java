@@ -1,55 +1,66 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "User")
+@Root(name = "User")
 public class UserTO extends UserDataTO {
 
-    private static final long serialVersionUID = 6082457314575564102L;
+    @ElementList(required = false)
+    private List<BetCommunityNameTO> betCommunitiesMod;
 
-    private BetCommunityNameTO[] betCommunitiesMod;
+    @ElementList(required = false)
+    private List<UserGroupNameTO> userGroupsMod;
 
-    private UserGroupNameTO[] userGroupsMod;
+    @ElementList(required = false)
+    private List<TournamentDescrTO> tournamentsMod;
 
-    private TournamentDescrTO[] tournamentsMod;
-
+    @Element(required = false)
     private Boolean isAdmin;
 
+    @Element(required = false)
     private Boolean isGuest;
 
-    private UserGroupNameTO[] groups;
+    @ElementList(required = false)
+    private List<UserGroupNameTO> groups;
 
-    private SessionIdTO[] sessions;
+    @ElementList(required = false)
+    private List<SessionIdTO> sessions;
 
+    @Element(required = false)
     private Date creation;
 
+    @Element(required = false)
     private Date inactive;
 
+    @Element(required = false)
     private Date disabled;
 
-    public BetCommunityNameTO[] getBetCommunitiesMod() {
+    public List<BetCommunityNameTO> getBetCommunitiesMod() {
         return betCommunitiesMod;
     }
 
-    public void setBetCommunitiesMod(BetCommunityNameTO[] betCommunitiesMod) {
+    public void setBetCommunitiesMod(List<BetCommunityNameTO> betCommunitiesMod) {
         this.betCommunitiesMod = betCommunitiesMod;
     }
 
-    public UserGroupNameTO[] getUserGroupsMod() {
+    public List<UserGroupNameTO> getUserGroupsMod() {
         return userGroupsMod;
     }
 
-    public void setUserGroupsMod(UserGroupNameTO[] userGroupsMod) {
+    public void setUserGroupsMod(List<UserGroupNameTO> userGroupsMod) {
         this.userGroupsMod = userGroupsMod;
     }
 
-    public TournamentDescrTO[] getTournamentsMod() {
+    public List<TournamentDescrTO> getTournamentsMod() {
         return tournamentsMod;
     }
 
-    public void setTournamentsMod(TournamentDescrTO[] tournamentsMod) {
+    public void setTournamentsMod(List<TournamentDescrTO> tournamentsMod) {
         this.tournamentsMod = tournamentsMod;
     }
 
@@ -69,19 +80,19 @@ public class UserTO extends UserDataTO {
         this.isGuest = isGuest;
     }
 
-    public UserGroupNameTO[] getGroups() {
+    public List<UserGroupNameTO> getGroups() {
         return groups;
     }
 
-    public void setGroups(UserGroupNameTO[] groups) {
+    public void setGroups(List<UserGroupNameTO> groups) {
         this.groups = groups;
     }
 
-    public SessionIdTO[] getSessions() {
+    public List<SessionIdTO> getSessions() {
         return sessions;
     }
 
-    public void setSessions(SessionIdTO[] sessions) {
+    public void setSessions(List<SessionIdTO> sessions) {
         this.sessions = sessions;
     }
 

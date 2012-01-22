@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.rmi.RemoteException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -12,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import de.tipit.server.model.i18n.error.IllegalAccess;
 import de.tipit.server.model.i18n.error.IllegalArgument;
 import de.tipit.server.model.i18n.error.UnknownError;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
 public class TransactionProxy implements InvocationHandler {
@@ -43,7 +43,7 @@ public class TransactionProxy implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] arguments) throws RemoteException {
+    public Object invoke(Object proxy, Method method, Object[] arguments) throws GeneralError {
         // start transaction
         EntityTransaction trans = entityManager.getTransaction();
         trans.begin();
@@ -70,8 +70,8 @@ public class TransactionProxy implements InvocationHandler {
             Throwable targetExc = exc.getTargetException();
             if (targetExc instanceof RuntimeException) {
                 throw (RuntimeException) targetExc;
-            } else if (targetExc instanceof RemoteException) {
-                throw (RemoteException) targetExc;
+            } else if (targetExc instanceof GeneralError) {
+                throw (GeneralError) targetExc;
             } else {
                 throw new UnknownError(findContext(arguments));
             }

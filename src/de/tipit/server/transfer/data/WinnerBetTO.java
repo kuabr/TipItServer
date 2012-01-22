@@ -1,18 +1,22 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "WinnerBet")
+@Root(name = "WinnerBet")
 public class WinnerBetTO extends WinnerBetDataResultTO {
 
-    private static final long serialVersionUID = -863261802138248218L;
-
+    @Element(required = false)
     private UserNameTO user;
 
-    private CommentTO[] comments;
+    @ElementList(required = false)
+    private List<CommentTO> comments;
 
+    @Element(required = false)
     private Date creation;
 
     public UserNameTO getUser() {
@@ -23,11 +27,11 @@ public class WinnerBetTO extends WinnerBetDataResultTO {
         this.user = user;
     }
 
-    public CommentTO[] getComments() {
+    public List<CommentTO> getComments() {
         return comments;
     }
 
-    public void setComments(CommentTO[] comments) {
+    public void setComments(List<CommentTO> comments) {
         this.comments = comments;
     }
 

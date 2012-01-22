@@ -1,19 +1,19 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "RuleBookName")
+@Root(name = "RuleBookName")
 public class RuleBookNameTO extends RuleBookIdTO {
 
-	private static final long serialVersionUID = 9076831238652033880L;
+    @Element(required = false)
+    private String displayName;
 
-	private String displayName;
+    public String getDisplayName() {
+        return displayName;
+    }
 
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }

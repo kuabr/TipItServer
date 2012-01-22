@@ -1,14 +1,15 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserPoints")
+@Root(name = "UserPoints")
 public class UserPointsTO extends UserIdTO {
 
-    private static final long serialVersionUID = -9141166623954048634L;
-
+    @Element(required = false)
     private Integer userPoints;
 
+    @Element(required = false)
     private Integer nrOfBets;
 
     public Integer getUserPoints() {

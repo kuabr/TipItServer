@@ -1,12 +1,12 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "MatchDayDataBase")
+@Root(name = "MatchDayDataBase")
 public class MatchDayDataBaseTO extends MatchDayIdTO {
 
-    private static final long serialVersionUID = 7684534010395145389L;
-
+    @Attribute(required = false)
     private Integer day;
 
     public Integer getDay() {

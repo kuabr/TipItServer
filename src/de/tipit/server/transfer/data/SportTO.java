@@ -1,19 +1,21 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement(name = "Sport")
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+@Root(name = "Sport")
 public class SportTO extends SportDataTO {
 
-    private static final long serialVersionUID = 1743976254937120894L;
+    @ElementList(required = false)
+    private List<TournamentTypeNameTO> tournTypes;
 
-    private TournamentTypeNameTO[] tournTypes;
-
-    public TournamentTypeNameTO[] getTournTypes() {
+    public List<TournamentTypeNameTO> getTournTypes() {
         return tournTypes;
     }
 
-    public void setTournTypes(TournamentTypeNameTO[] tournTypes) {
+    public void setTournTypes(List<TournamentTypeNameTO> tournTypes) {
         this.tournTypes = tournTypes;
     }
 }

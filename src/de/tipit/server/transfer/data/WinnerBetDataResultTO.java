@@ -1,14 +1,15 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "WinnerBetDataResult")
+@Root(name = "WinnerBetDataResult")
 public class WinnerBetDataResultTO extends WinnerBetIdTO {
 
-    private static final long serialVersionUID = 3394236127832126581L;
-
+    @Element(required = false)
     private TournamentDescrTO tournDescr;
 
+    @Element(required = false)
     private TeamNameTO winnerTeamName;
 
     public TournamentDescrTO getTournDescr() {

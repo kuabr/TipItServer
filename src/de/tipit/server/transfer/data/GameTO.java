@@ -1,18 +1,24 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement(name = "Game")
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+@Root(name = "Game")
 public class GameTO extends GameDataResultTO {
 
-    private static final long serialVersionUID = 5433124942928248154L;
-
+    @Element(required = false)
     private Integer averageHomeResultBet;
 
+    @Element(required = false)
     private Integer averageAwayResultBet;
 
-    private GameBetTO[] bets;
+    @ElementList(required = false)
+    private List<GameBetTO> bets;
 
+    @Element(required = false)
     private GameResultTO result;
 
     public Integer getAverageHomeResultBet() {
@@ -31,11 +37,11 @@ public class GameTO extends GameDataResultTO {
         this.averageAwayResultBet = averageAwayResultBet;
     }
 
-    public GameBetTO[] getBets() {
+    public List<GameBetTO> getBets() {
         return bets;
     }
 
-    public void setBets(GameBetTO[] bets) {
+    public void setBets(List<GameBetTO> bets) {
         this.bets = bets;
     }
 

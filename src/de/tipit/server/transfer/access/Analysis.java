@@ -1,6 +1,6 @@
 package de.tipit.server.transfer.access;
 
-import java.rmi.RemoteException;
+import java.util.List;
 
 import de.tipit.server.transfer.data.BetCommunityIdTO;
 import de.tipit.server.transfer.data.BetCommunityNameTO;
@@ -22,44 +22,44 @@ import de.tipit.server.transfer.data.UserPointsTO;
 
 public interface Analysis {
 
-    BetCommunityNameTO[] findBetCommunities(ContextTO context, SessionIdTO sessionId, BetCommunitySearchDataTO betCommunitySearchData) throws RemoteException;
+    List<BetCommunityNameTO> findBetCommunities(ContextTO context, SessionIdTO sessionId, BetCommunitySearchDataTO betCommunitySearchData) throws GeneralError;
 
-    BetCommunityNameTO[] getParticipatingBetCommunities(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    List<BetCommunityNameTO> getParticipatingBetCommunities(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    BetCommunityTO readBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws RemoteException;
+    BetCommunityTO readBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError;
 
-    TournamentDescrTO[] findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws RemoteException;
+    List<TournamentDescrTO> findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws GeneralError;
 
-    TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException;
+    TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError;
 
-    GameDataResultTO[] getGamesForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException;
+    List<GameDataResultTO> getGamesForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError;
 
-    GameWithPointsTO[] getGamesWithPointsByTournament(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
-            Boolean onlyGamesWithResult) throws RemoteException;
+    List<GameWithPointsTO> getGamesWithPointsByTournament(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
+            Boolean onlyGamesWithResult) throws GeneralError;
 
-    GameWithPointsTO[] getGamesWithPointsByPeriod(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, PeriodTO period,
-            Boolean onlyGamesWithResult) throws RemoteException;
+    List<GameWithPointsTO> getGamesWithPointsByPeriod(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, PeriodTO period,
+            Boolean onlyGamesWithResult) throws GeneralError;
 
-    UserPointsTO[] getTournamentRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
-            Boolean onlyUsersWithBet) throws RemoteException;
+    List<UserPointsTO> getTournamentRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
+            Boolean onlyUsersWithBet) throws GeneralError;
 
-    UserGroupPointsTO[] getTournamentRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
-            throws RemoteException;
+    List<UserGroupPointsTO> getTournamentRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
+            throws GeneralError;
 
-    UserPointsTO[] getTournamentRoundRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentRoundIdTO tournRoundId,
-            Boolean onlyUsersWithBet) throws RemoteException;
+    List<UserPointsTO> getTournamentRoundRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            TournamentRoundIdTO tournRoundId, Boolean onlyUsersWithBet) throws GeneralError;
 
-    UserGroupPointsTO[] getTournamentRoundRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
-            TournamentRoundIdTO tournRoundId) throws RemoteException;
+    List<UserGroupPointsTO> getTournamentRoundRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
+            TournamentRoundIdTO tournRoundId) throws GeneralError;
 
-    UserPointsTO[] getMatchDayRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId,
-            Boolean onlyUsersWithBet) throws RemoteException;
+    List<UserPointsTO> getMatchDayRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId,
+            Boolean onlyUsersWithBet) throws GeneralError;
 
-    UserGroupPointsTO[] getMatchDayRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId)
-            throws RemoteException;
+    List<UserGroupPointsTO> getMatchDayRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId)
+            throws GeneralError;
 
-    UserPointsTO[] getAllTimeRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, Boolean onlyUsersWithBet)
-            throws RemoteException;
+    List<UserPointsTO> getAllTimeRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, Boolean onlyUsersWithBet)
+            throws GeneralError;
 
-    UserGroupPointsTO[] getAllTimeRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws RemoteException;
+    List<UserGroupPointsTO> getAllTimeRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError;
 }

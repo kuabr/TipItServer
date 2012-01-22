@@ -3,9 +3,10 @@ package de.tipit.server.model.i18n.error;
 import java.util.Date;
 
 import de.tipit.server.model.i18n.DateFormatter;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
-public class RuleBookIsAlreadyFinalized extends BaseError {
+public class RuleBookIsAlreadyFinalized extends GeneralError {
 
     private static final long serialVersionUID = -2619953243887754842L;
 

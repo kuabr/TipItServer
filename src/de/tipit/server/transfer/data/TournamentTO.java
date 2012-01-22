@@ -1,41 +1,49 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "Tournament")
+@Root(name = "Tournament")
 public class TournamentTO extends TournamentDataResultTO {
 
-    private static final long serialVersionUID = 6700309862326688385L;
+    @ElementList(required = false)
+    private List<TournamentRoundDataArgumentTO> tournRounds;
 
-    private TournamentRoundDataArgumentTO[] tournRounds;
+    @ElementList(required = false)
+    private List<BetCommunityNameTO> betCommunities;
 
-    private BetCommunityNameTO[] betCommunities;
-
+    @Element(required = false)
     private UserNameTO creator;
 
-    private UserNameTO[] moderators;
+    @ElementList(required = false)
+    private List<UserNameTO> moderators;
 
-    private CommentTO[] comments;
+    @ElementList(required = false)
+    private List<CommentTO> comments;
 
+    @Element(required = false)
     private Date creation;
 
+    @Element(required = false)
     private Date deleted;
 
-    public TournamentRoundDataArgumentTO[] getTournRounds() {
+    public List<TournamentRoundDataArgumentTO> getTournRounds() {
         return tournRounds;
     }
 
-    public void setTournRounds(TournamentRoundDataArgumentTO[] tournRounds) {
+    public void setTournRounds(List<TournamentRoundDataArgumentTO> tournRounds) {
         this.tournRounds = tournRounds;
     }
 
-    public BetCommunityNameTO[] getBetCommunities() {
+    public List<BetCommunityNameTO> getBetCommunities() {
         return betCommunities;
     }
 
-    public void setBetCommunities(BetCommunityNameTO[] betCommunities) {
+    public void setBetCommunities(List<BetCommunityNameTO> betCommunities) {
         this.betCommunities = betCommunities;
     }
 
@@ -47,19 +55,19 @@ public class TournamentTO extends TournamentDataResultTO {
         this.creator = creator;
     }
 
-    public UserNameTO[] getModerators() {
+    public List<UserNameTO> getModerators() {
         return moderators;
     }
 
-    public void setModerators(UserNameTO[] moderators) {
+    public void setModerators(List<UserNameTO> moderators) {
         this.moderators = moderators;
     }
 
-    public CommentTO[] getComments() {
+    public List<CommentTO> getComments() {
         return comments;
     }
 
-    public void setComments(CommentTO[] comments) {
+    public void setComments(List<CommentTO> comments) {
         this.comments = comments;
     }
 

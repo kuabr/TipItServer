@@ -1,8 +1,9 @@
 package de.tipit.server.model.i18n.error;
 
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
-public class IllegalAccess extends BaseError {
+public class IllegalAccess extends GeneralError {
 
     private static final long serialVersionUID = -6040856591048917672L;
 

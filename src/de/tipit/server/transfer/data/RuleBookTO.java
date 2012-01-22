@@ -1,31 +1,38 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "RuleBook")
+@Root(name = "RuleBook")
 public class RuleBookTO extends RuleBookDataTO {
 
-    private static final long serialVersionUID = -5462769874519589503L;
+    @ElementList(required = false)
+    private List<BetCommunityNameTO> betCommunities;
 
-    private BetCommunityNameTO[] betCommunities;
-
+    @Element(required = false)
     private UserNameTO creator;
 
+    @Element(required = false)
     private Date created;
 
-    private CommentTO[] comments;
+    @ElementList(required = false)
+    private List<CommentTO> comments;
 
+    @Element(required = false)
     private Date finalized;
 
+    @Element(required = false)
     private Date deleted;
 
-    public BetCommunityNameTO[] getBetCommunities() {
+    public List<BetCommunityNameTO> getBetCommunities() {
         return betCommunities;
     }
 
-    public void setBetCommunities(BetCommunityNameTO[] betCommunities) {
+    public void setBetCommunities(List<BetCommunityNameTO> betCommunities) {
         this.betCommunities = betCommunities;
     }
 
@@ -45,11 +52,11 @@ public class RuleBookTO extends RuleBookDataTO {
         this.created = created;
     }
 
-    public CommentTO[] getComments() {
+    public List<CommentTO> getComments() {
         return comments;
     }
 
-    public void setComments(CommentTO[] comments) {
+    public void setComments(List<CommentTO> comments) {
         this.comments = comments;
     }
 

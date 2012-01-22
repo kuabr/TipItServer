@@ -1,12 +1,12 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "BetCommunityName")
+@Root(name = "BetCommunityName")
 public class BetCommunityNameTO extends BetCommunityIdTO {
 
-    private static final long serialVersionUID = -3923074380093053693L;
-
+    @Element(required = false)
     private String communityName;
 
     public String getCommunityName() {

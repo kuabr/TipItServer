@@ -1,10 +1,10 @@
 package de.tipit.server.transfer.access;
 
-import java.rmi.RemoteException;
+import java.util.List;
 
 import de.tipit.server.transfer.data.ContextTO;
-import de.tipit.server.transfer.data.SessionIdTO;
 import de.tipit.server.transfer.data.LoginParameterTO;
+import de.tipit.server.transfer.data.SessionIdTO;
 import de.tipit.server.transfer.data.SessionTO;
 import de.tipit.server.transfer.data.UserAccountTO;
 import de.tipit.server.transfer.data.UserContactTO;
@@ -16,27 +16,27 @@ import de.tipit.server.transfer.data.UserTO;
 
 public interface UserSession {
 
-    SessionTO renewSession(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    SessionTO renewSession(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    SessionTO doLogin(ContextTO context, UserAccountTO userAccount, LoginParameterTO loginParameter) throws RemoteException;
+    SessionTO doLogin(ContextTO context, UserAccountTO userAccount, LoginParameterTO loginParameter) throws GeneralError;
 
-    SessionTO doLoginAsGuest(ContextTO context) throws RemoteException;
+    SessionTO doLoginAsGuest(ContextTO context) throws GeneralError;
 
-    void doLogout(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    Void doLogout(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    UserIdTO createUser(ContextTO context, UserDataTO userData) throws RemoteException;
+    UserIdTO createUser(ContextTO context, UserDataTO userData) throws GeneralError;
 
-    void updateUser(ContextTO context, SessionIdTO sessionId, UserDataTO userData) throws RemoteException;
+    Void updateUser(ContextTO context, SessionIdTO sessionId, UserDataTO userData) throws GeneralError;
 
-    void resetPassword(ContextTO context, UserContactTO userContact) throws RemoteException;
+    Void resetPassword(ContextTO context, UserContactTO userContact) throws GeneralError;
 
-    UserNameTO[] findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws RemoteException;
+    List<UserNameTO> findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws GeneralError;
 
-    void setInactive(ContextTO context, SessionIdTO sessionId, Boolean isInactive) throws RemoteException;
+    Void setInactive(ContextTO context, SessionIdTO sessionId, Boolean isInactive) throws GeneralError;
 
-    void setDisabled(ContextTO context, SessionIdTO sessionId, UserIdTO userId, Boolean isDisabled) throws RemoteException;
+    Void setDisabled(ContextTO context, SessionIdTO sessionId, UserIdTO userId, Boolean isDisabled) throws GeneralError;
 
-    UserTO readOwnUser(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    UserTO readOwnUser(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    UserTO readUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws RemoteException;
+    UserTO readUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError;
 }

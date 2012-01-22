@@ -1,29 +1,32 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement(name = "TournamentType")
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+@Root(name = "TournamentType")
 public class TournamentTypeTO extends TournamentTypeDataResultTO {
 
-    private static final long serialVersionUID = 2424033643029822576L;
+    @ElementList(required = false)
+    private List<TournamentDescrTO> tournaments;
 
-    private TournamentDescrTO[] tournaments;
+    @ElementList(required = false)
+    private List<TeamNameTO> allowedTeams;
 
-    private TeamNameTO[] allowedTeams;
-
-    public TournamentDescrTO[] getTournaments() {
+    public List<TournamentDescrTO> getTournaments() {
         return tournaments;
     }
 
-    public void setTournaments(TournamentDescrTO[] tournaments) {
+    public void setTournaments(List<TournamentDescrTO> tournaments) {
         this.tournaments = tournaments;
     }
 
-    public TeamNameTO[] getAllowedTeams() {
+    public List<TeamNameTO> getAllowedTeams() {
         return allowedTeams;
     }
 
-    public void setAllowedTeams(TeamNameTO[] allowedTeams) {
+    public void setAllowedTeams(List<TeamNameTO> allowedTeams) {
         this.allowedTeams = allowedTeams;
     }
 }

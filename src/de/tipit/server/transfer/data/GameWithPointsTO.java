@@ -1,19 +1,21 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement(name = "GameWithPoints")
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+@Root(name = "GameWithPoints")
 public class GameWithPointsTO extends GameTO {
 
-    private static final long serialVersionUID = 204025304132654219L;
+    @ElementList(required = false)
+    private List<Integer> points;
 
-    private Integer[] points;
-
-    public Integer[] getPoints() {
+    public List<Integer> getPoints() {
         return points;
     }
 
-    public void setPoints(Integer[] points) {
+    public void setPoints(List<Integer> points) {
         this.points = points;
     }
 }

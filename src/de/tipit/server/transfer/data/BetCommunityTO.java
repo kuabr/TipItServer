@@ -1,39 +1,46 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "BetCommunity")
+@Root(name = "BetCommunity")
 public class BetCommunityTO extends BetCommunityDataResultTO {
 
-    private static final long serialVersionUID = -216845832609559670L;
+    @ElementList(required = false)
+    private List<UserGroupNameTO> userGroups;
 
-    private UserGroupNameTO[] userGroups;
+    @ElementList(required = false)
+    private List<TournamentDescrTO> tournaments;
 
-    private TournamentDescrTO[] tournaments;
-
+    @Element(required = false)
     private UserNameTO founder;
 
-    private UserNameTO[] moderators;
+    @ElementList(required = false)
+    private List<UserNameTO> moderators;
 
+    @Element(required = false)
     private Date foundation;
 
+    @Element(required = false)
     private Date deleted;
 
-    public UserGroupNameTO[] getUserGroups() {
+    public List<UserGroupNameTO> getUserGroups() {
         return userGroups;
     }
 
-    public void setUserGroups(UserGroupNameTO[] userGroups) {
+    public void setUserGroups(List<UserGroupNameTO> userGroups) {
         this.userGroups = userGroups;
     }
 
-    public TournamentDescrTO[] getTournaments() {
+    public List<TournamentDescrTO> getTournaments() {
         return tournaments;
     }
 
-    public void setTournaments(TournamentDescrTO[] tournaments) {
+    public void setTournaments(List<TournamentDescrTO> tournaments) {
         this.tournaments = tournaments;
     }
 
@@ -45,11 +52,11 @@ public class BetCommunityTO extends BetCommunityDataResultTO {
         this.founder = founder;
     }
 
-    public UserNameTO[] getModerators() {
+    public List<UserNameTO> getModerators() {
         return moderators;
     }
 
-    public void setModerators(UserNameTO[] moderators) {
+    public void setModerators(List<UserNameTO> moderators) {
         this.moderators = moderators;
     }
 

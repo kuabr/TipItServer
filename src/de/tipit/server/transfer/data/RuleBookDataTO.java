@@ -1,50 +1,69 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "RuleBookData")
+@Root(name = "RuleBookData")
 public class RuleBookDataTO extends RuleBookIdTO {
 
-    private static final long serialVersionUID = -4053876984205443400L;
-
+    @Element(required = false)
     private String ruleBookName;
 
+    @Element(required = false)
     private String description;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectHomeResult;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectAwayResult;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectHomeResultInCaseOfCorrectTrend;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectAwayResultInCaseOfCorrectTrend;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectResult;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectDifference;
 
+    @Element(required = false)
     private Integer pointsToAddForCorrectTrend;
 
+    @Element(required = false)
     private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectHomeResult;
 
+    @Element(required = false)
     private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectAwayResult;
 
+    @Element(required = false)
     private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectDifference;
 
+    @Element(required = false)
     private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectTrend;
 
+    @Element(required = false)
     private Integer roundMultiplierForFirstRound;
 
+    @Element(required = false)
     private Integer roundMultiplierAdderPerRound;
 
+    @Element(required = false)
     private Integer roundMultiplierMultiplierPerRound;
 
+    @Element(required = false)
     private Integer pointsPerUserToDistribute;
 
+    @Element(required = false)
     private Integer pointsForCorrectWinnerBet;
 
+    @Element(required = false)
     private Integer pointsForCorrectWinnerBetPer100GamesConsideringRoundMultipliers;
 
+    @Element(required = false)
     private Integer pointsForCorrectWinnerBetPer100PointsFromGameBets;
 
     public String getRuleBookName() {

@@ -3,11 +3,12 @@ package de.tipit.server.model.i18n.error;
 import java.util.Date;
 
 import de.tipit.server.model.i18n.DateFormatter;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 
-public class UserIsDisabled extends BaseError {
+public class UserIsDisabled extends GeneralError {
 
-    private static final long serialVersionUID = -2090736643797611718L;
+    private static final long serialVersionUID = -6738959258887171608L;
 
     private static String calcMessageDE(String userName, Date disabledDate) {
         return "User '" + userName + "' kann seit dem " + DateFormatter.getDateDE(disabledDate) + " ab " + DateFormatter.getTimeDE(disabledDate)

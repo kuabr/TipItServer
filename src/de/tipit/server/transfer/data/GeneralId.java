@@ -1,14 +1,12 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
+@Root(name = "GeneralId")
+public class GeneralId {
 
-@XmlRootElement(name = "GeneralId")
-public class GeneralId implements Serializable {
-
-    private static final long serialVersionUID = 4342015191233258716L;
-
+    @Attribute(required = false)
     private Long techId;
 
     public Long getTechId() {

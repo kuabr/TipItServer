@@ -9,9 +9,9 @@ import javax.persistence.EntityManager;
 
 import de.tipit.server.model.entity.SessionEO;
 import de.tipit.server.model.entity.UserEO;
-import de.tipit.server.model.i18n.error.BaseError;
 import de.tipit.server.model.i18n.error.SessionNotValid;
 import de.tipit.server.model.i18n.error.UserIsDisabled;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.ContextTO;
 import de.tipit.server.transfer.data.SessionIdTO;
 
@@ -19,7 +19,7 @@ public class SessionManager {
 
     private final EntityManager entityManager;
 
-    private static final String SESSION_ID_CHARACTERS = "#$%&'()*+,-./0123456789:;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+    private static final String SESSION_ID_CHARACTERS = "#$%&<>()*+,-./0123456789:;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
     private static final int MIN_SKIPPING_PROBABILITY = 10;
 
@@ -138,9 +138,9 @@ public class SessionManager {
      * @param currentDate
      *            current date
      * @return new sessionId
-     * @throws BaseError
+     * @throws GeneralError
      */
-    public SessionEO createSession(ContextTO context, UserEO user, Date expirationDate, Date currentDate) throws BaseError {
+    public SessionEO createSession(ContextTO context, UserEO user, Date expirationDate, Date currentDate) throws GeneralError {
         if (user != null) {
             removeOldSessions(user, currentDate);
 
@@ -183,9 +183,9 @@ public class SessionManager {
      * @param currentDate
      *            current date
      * @return new sessionId
-     * @throws BaseError
+     * @throws GeneralError
      */
-    public SessionEO replaceSession(ContextTO context, SessionEO oldSession, Date currentDate) throws BaseError {
+    public SessionEO replaceSession(ContextTO context, SessionEO oldSession, Date currentDate) throws GeneralError {
         if (oldSession != null) {
             UserEO user = oldSession.getUser();
 
@@ -234,9 +234,9 @@ public class SessionManager {
      *            session object
      * @param currentDate
      *            current date
-     * @throws BaseError
+     * @throws GeneralError
      */
-    public void destroySession(ContextTO context, SessionEO session, Date currentDate) throws BaseError {
+    public void destroySession(ContextTO context, SessionEO session, Date currentDate) throws GeneralError {
         if (session != null) {
             session.setLastUsage(currentDate);
             session.setValid(false);
@@ -253,9 +253,9 @@ public class SessionManager {
      *            sessionId
      * @param currentDate
      *            current date
-     * @throws BaseError
+     * @throws GeneralError
      */
-    public void destroySession(ContextTO context, SessionIdTO sessionId, Date currentDate) throws BaseError {
+    public void destroySession(ContextTO context, SessionIdTO sessionId, Date currentDate) throws GeneralError {
         SessionEO session = entityManager.find(SessionEO.class, sessionId.getSessionId());
         destroySession(context, session, currentDate);
     }
@@ -270,9 +270,9 @@ public class SessionManager {
      * @param currentDate
      *            current date
      * @return the user object
-     * @throws BaseError
+     * @throws GeneralError
      */
-    public SessionEO getSession(ContextTO context, SessionIdTO sessionId, Date currentDate) throws BaseError {
+    public SessionEO getSession(ContextTO context, SessionIdTO sessionId, Date currentDate) throws GeneralError {
         if (sessionId != null && sessionId.getSessionId() != null) {
             SessionEO session = entityManager.find(SessionEO.class, sessionId.getSessionId());
             if (session != null) {

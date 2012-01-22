@@ -1,6 +1,6 @@
 package de.tipit.server.transfer.access;
 
-import java.rmi.RemoteException;
+import java.util.List;
 
 import de.tipit.server.transfer.data.ContextTO;
 import de.tipit.server.transfer.data.GameDataArgumentTO;
@@ -23,40 +23,40 @@ import de.tipit.server.transfer.data.UserSearchDataTO;
 
 public interface TournamentAdmin {
 
-    SportNameTO[] getSports(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    List<SportNameTO> getSports(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    TournamentDescrTO[] findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws RemoteException;
+    List<TournamentDescrTO> findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws GeneralError;
 
-    TournamentDescrTO[] getModeratedTournaments(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    List<TournamentDescrTO> getModeratedTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    TournamentDescrTO[] getOwnTournaments(ContextTO context, SessionIdTO sessionId) throws RemoteException;
+    List<TournamentDescrTO> getOwnTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError;
 
-    TeamNameTO[] getTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException;
+    List<TeamNameTO> getTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError;
 
-    TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException;
+    TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError;
 
-    UserNameTO[] findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws RemoteException;
+    List<UserNameTO> findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws GeneralError;
 
-    TournamentIdTO createOrUpdateTournament(ContextTO context, SessionIdTO sessionId, TournamentDataArgumentTO tournData) throws RemoteException;
+    TournamentIdTO createOrUpdateTournament(ContextTO context, SessionIdTO sessionId, TournamentDataArgumentTO tournData) throws GeneralError;
 
-    void deleteTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException;
+    Void deleteTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError;
 
-    Boolean isTournamentModerator(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws RemoteException;
+    Boolean isTournamentModerator(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError;
 
-    void addModeratorToTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws RemoteException;
+    Void addModeratorToTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws GeneralError;
 
-    void removeModeratorFromTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws RemoteException;
+    Void removeModeratorFromTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws GeneralError;
 
     TournamentRoundIdTO createOrUpdateTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundDataArgumentTO tournRoundData)
-            throws RemoteException;
+            throws GeneralError;
 
-    void deleteTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundIdTO tournRoundId) throws RemoteException;
+    Void deleteTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundIdTO tournRoundId) throws GeneralError;
 
-    MatchDayIdTO createOrUpdateMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayDataArgumentTO matchDayData) throws RemoteException;
+    MatchDayIdTO createOrUpdateMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayDataArgumentTO matchDayData) throws GeneralError;
 
-    void deleteMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayIdTO matchDayId) throws RemoteException;
+    Void deleteMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayIdTO matchDayId) throws GeneralError;
 
-    GameIdTO createOrUpdateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws RemoteException;
+    GameIdTO createOrUpdateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws GeneralError;
 
-    void deleteGame(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws RemoteException;
+    Void deleteGame(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws GeneralError;
 }

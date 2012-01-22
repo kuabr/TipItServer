@@ -1,52 +1,65 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "RuleBookSearchData")
+@Root(name = "RuleBookSearchData")
 public class RuleBookSearchDataTO extends GeneralSearchData {
 
-    private static final long serialVersionUID = 6648536603230698710L;
+    public static class RuleBookPoints {
 
-    public static class RuleBookPoints implements Serializable {
-
-        private static final long serialVersionUID = -4624410155365961913L;
-
+        @Element(required = false)
         private Integer pointsToAddForCorrectHomeResult;
 
+        @Element(required = false)
         private Integer pointsToAddForCorrectAwayResult;
 
+        @Element(required = false)
         private Integer pointsToAddForCorrectHomeResultInCaseOfCorrectTrend;
 
+        @Element(required = false)
         private Integer pointsToAddForCorrectAwayResultInCaseOfCorrectTrend;
 
+        @Element(required = false)
         private Integer pointsToAddForCorrectResult;
 
+        @Element(required = false)
         private Integer pointsToAddForCorrectDifference;
 
+        @Element(required = false)
         private Integer pointsToAddForCorrectTrend;
 
+        @Element(required = false)
         private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectHomeResult;
 
+        @Element(required = false)
         private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectAwayResult;
 
+        @Element(required = false)
         private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectDifference;
 
+        @Element(required = false)
         private Integer pointsToMultiplyWithAbsDiffBetweenAverageAndCorrectTrend;
 
+        @Element(required = false)
         private Integer roundMultiplierForFirstRound;
 
+        @Element(required = false)
         private Integer roundMultiplierAdderPerRound;
 
+        @Element(required = false)
         private Integer roundMultiplierMultiplierPerRound;
 
+        @Element(required = false)
         private Integer pointsPerUserToDistribute;
 
+        @Element(required = false)
         private Integer pointsForCorrectWinnerBet;
 
+        @Element(required = false)
         private Integer pointsForCorrectWinnerBetPer100GamesConsideringRoundMultipliers;
 
+        @Element(required = false)
         private Integer pointsForCorrectWinnerBetPer100PointsFromGameBets;
 
         public Integer getPointsToAddForCorrectHomeResult() {
@@ -194,8 +207,10 @@ public class RuleBookSearchDataTO extends GeneralSearchData {
         }
     }
 
+    @Element(required = false)
     private RuleBookPoints minPoints;
 
+    @Element(required = false)
     private RuleBookPoints maxPoints;
 
     public RuleBookPoints getMinPoints() {

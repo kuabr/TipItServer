@@ -1,9 +1,7 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserGroupId")
+@Root(name = "UserGroupId")
 public class UserGroupIdTO extends GeneralId {
-
-    private static final long serialVersionUID = -7204545775242435769L;
 }

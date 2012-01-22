@@ -1,25 +1,29 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "GameResult")
+@Root(name = "GameResult")
 public class GameResultTO extends GameResultDataTO {
 
-    private static final long serialVersionUID = -4404947602970363084L;
+    @ElementList(required = false)
+    private List<CommentTO> comments;
 
-    private CommentTO[] comments;
-
+    @Element(required = false)
     private UserNameTO creator;
 
+    @Element(required = false)
     private Date creation;
 
-    public CommentTO[] getComments() {
+    public List<CommentTO> getComments() {
         return comments;
     }
 
-    public void setComments(CommentTO[] comments) {
+    public void setComments(List<CommentTO> comments) {
         this.comments = comments;
     }
 

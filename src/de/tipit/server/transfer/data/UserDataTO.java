@@ -2,74 +2,79 @@ package de.tipit.server.transfer.data;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserData")
+@Root(name = "UserData")
 public class UserDataTO extends UserIdTO {
 
-	private static final long serialVersionUID = -6738688275820170189L;
+    public static enum Gender {
+        FEMALE, MALE
+    }
 
-	public static enum Gender {
-		FEMALE, MALE
-	}
+    @Element(required = false)
+    private UserAccountTO account;
 
-	private UserAccountTO account;
+    @Element(required = false)
+    private UserContactTO contact;
 
-	private UserContactTO contact;
+    @Element(required = false)
+    private String fullPreName;
 
-	private String fullPreName;
+    @Element(required = false)
+    private String fullSurName;
 
-	private String fullSurName;
+    @Element(required = false)
+    private Gender gender;
 
-	private Gender gender;
+    @Element(required = false)
+    private Date birthday;
 
-	private Date birthday;
+    public UserAccountTO getAccount() {
+        return account;
+    }
 
-	public UserAccountTO getAccount() {
-		return account;
-	}
+    public void setAccount(UserAccountTO account) {
+        this.account = account;
+    }
 
-	public void setAccount(UserAccountTO account) {
-		this.account = account;
-	}
+    public UserContactTO getContact() {
+        return contact;
+    }
 
-	public UserContactTO getContact() {
-		return contact;
-	}
+    public void setContact(UserContactTO contact) {
+        this.contact = contact;
+    }
 
-	public void setContact(UserContactTO contact) {
-		this.contact = contact;
-	}
+    public String getFullPreName() {
+        return fullPreName;
+    }
 
-	public String getFullPreName() {
-		return fullPreName;
-	}
+    public void setFullPreName(String fullPreName) {
+        this.fullPreName = fullPreName;
+    }
 
-	public void setFullPreName(String fullPreName) {
-		this.fullPreName = fullPreName;
-	}
+    public String getFullSurName() {
+        return fullSurName;
+    }
 
-	public String getFullSurName() {
-		return fullSurName;
-	}
+    public void setFullSurName(String fullSurName) {
+        this.fullSurName = fullSurName;
+    }
 
-	public void setFullSurName(String fullSurName) {
-		this.fullSurName = fullSurName;
-	}
+    public Gender getGender() {
+        return gender;
+    }
 
-	public Gender getGender() {
-		return gender;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 }

@@ -1,19 +1,19 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "TournamentDescr")
+@Root(name = "TournamentDescr")
 public class TournamentDescrTO extends TournamentIdTO {
 
-	private static final long serialVersionUID = -8350957127283138922L;
+    @Element(required = false)
+    private String displayDescr;
 
-	private String displayDescr;
+    public String getDisplayDescr() {
+        return displayDescr;
+    }
 
-	public String getDisplayDescr() {
-		return displayDescr;
-	}
-
-	public void setDisplayDescr(String displayDescr) {
-		this.displayDescr = displayDescr;
-	}
+    public void setDisplayDescr(String displayDescr) {
+        this.displayDescr = displayDescr;
+    }
 }

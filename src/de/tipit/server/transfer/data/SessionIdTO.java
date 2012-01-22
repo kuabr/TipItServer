@@ -1,21 +1,19 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
+@Root(name = "SessionId")
+public class SessionIdTO {
 
-@XmlRootElement(name = "SessionId")
-public class SessionIdTO implements Serializable {
+    @Attribute(required = false)
+    private String sessionId;
 
-	private static final long serialVersionUID = -5796145288888443173L;
+    public String getSessionId() {
+        return sessionId;
+    }
 
-	private String sessionId;
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 }

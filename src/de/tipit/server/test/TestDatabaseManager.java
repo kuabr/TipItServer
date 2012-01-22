@@ -1,6 +1,5 @@
 package de.tipit.server.test;
 
-import java.rmi.RemoteException;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -9,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import de.tipit.server.model.work.DatabaseManager;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.BetCommunityDataArgumentTO;
 import de.tipit.server.transfer.data.BetCommunityIdTO;
 import de.tipit.server.transfer.data.ContextTO;
@@ -46,7 +46,7 @@ public class TestDatabaseManager {
     }
 
     @SuppressWarnings("deprecation")
-    public UserIdTO createSimpleUser(ContextTO context, String userName) throws RemoteException {
+    public UserIdTO createSimpleUser(ContextTO context, String userName) throws GeneralError {
         UserDataTO userData = new UserDataTO();
         UserAccountTO userAccount = new UserAccountTO();
         UserContactTO userContact = new UserContactTO();
@@ -67,7 +67,7 @@ public class TestDatabaseManager {
         return dbm.createUser(context, userData);
     }
 
-    public UserGroupIdTO createTestUserGroup(ContextTO context, SessionTO session) throws RemoteException {
+    public UserGroupIdTO createTestUserGroup(ContextTO context, SessionTO session) throws GeneralError {
         UserGroupDataTO userGroupData = new UserGroupDataTO();
 
         userGroupData.setGroupName("Team AM");
@@ -76,7 +76,7 @@ public class TestDatabaseManager {
         return dbm.createOrUpdateUserGroup(context, session, userGroupData);
     }
 
-    public RuleBookIdTO createStandardRuleBook(ContextTO context, SessionTO session) throws RemoteException {
+    public RuleBookIdTO createStandardRuleBook(ContextTO context, SessionTO session) throws GeneralError {
         RuleBookDataTO ruleBookData = new RuleBookDataTO();
 
         ruleBookData.setRuleBookName("Standard");
@@ -90,7 +90,7 @@ public class TestDatabaseManager {
         return dbm.createOrUpdateRuleBook(context, session, ruleBookData);
     }
 
-    public BetCommunityIdTO createTestBetCommunity(ContextTO context, SessionTO session, RuleBookIdTO ruleBookId) throws RemoteException {
+    public BetCommunityIdTO createTestBetCommunity(ContextTO context, SessionTO session, RuleBookIdTO ruleBookId) throws GeneralError {
         BetCommunityDataArgumentTO betCommunityData = new BetCommunityDataArgumentTO();
 
         betCommunityData.setCommunityName("Champions EM Betters");
@@ -100,7 +100,7 @@ public class TestDatabaseManager {
         return dbm.createOrUpdateBetCommunity(context, session, betCommunityData);
     }
 
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) throws GeneralError {
         TestDatabaseManager test = new TestDatabaseManager();
 
         // create context

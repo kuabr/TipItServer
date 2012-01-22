@@ -1,24 +1,28 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "GameResultData")
+@Root(name = "GameResultData")
 public class GameResultDataTO extends GameIdTO {
-
-    private static final long serialVersionUID = -416497808243676159L;
 
     public static enum CountingResultType {
         AFTER_REGULAR_TIME, AFTER_EXTRA_TIME
     }
 
+    @Element(required = false)
     private Integer countingHomeResult;
 
+    @Element(required = false)
     private Integer countingAwayResult;
 
+    @Element(required = false)
     private CountingResultType countingResultType;
 
+    @Element(required = false)
     private Integer homeResultInPenaltyShootOut;
 
+    @Element(required = false)
     private Integer awayResultInPenaltyShootOut;
 
     public Integer getCountingHomeResult() {

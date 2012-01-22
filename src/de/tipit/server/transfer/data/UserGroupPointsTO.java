@@ -1,14 +1,15 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserGroupPoints")
+@Root(name = "UserGroupPoints")
 public class UserGroupPointsTO extends UserGroupIdTO {
 
-    private static final long serialVersionUID = -8859558021486293006L;
-
+    @Element(required = false)
     private Float averageUserPoints;
 
+    @Element(required = false)
     private Float averageNrOfBets;
 
     public Float getAverageUserPoints() {

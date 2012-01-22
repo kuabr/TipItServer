@@ -1,29 +1,30 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "TeamName")
+@Root(name = "TeamName")
 public class TeamNameTO extends TeamIdTO {
 
-	private static final long serialVersionUID = 1550625859549193271L;
+    @Element(required = false)
+    private String shortDisplayName;
 
-	private String shortDisplayName;
+    @Element(required = false)
+    private String displayName;
 
-	private String displayName;
+    public String getShortDisplayName() {
+        return shortDisplayName;
+    }
 
-	public String getShortDisplayName() {
-		return shortDisplayName;
-	}
+    public void setShortDisplayName(String shortDisplayName) {
+        this.shortDisplayName = shortDisplayName;
+    }
 
-	public void setShortDisplayName(String shortDisplayName) {
-		this.shortDisplayName = shortDisplayName;
-	}
+    public String getDisplayName() {
+        return displayName;
+    }
 
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }

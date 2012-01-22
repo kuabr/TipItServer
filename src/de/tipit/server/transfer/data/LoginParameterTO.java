@@ -1,20 +1,19 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "LoginParameter")
-public class LoginParameterTO implements Serializable {
-
-    private static final long serialVersionUID = 4075222129187220153L;
+@Root(name = "LoginParameter")
+public class LoginParameterTO {
 
     public static enum SessionDuration {
         HOUR, DAY, WEEK, MONTH, YEAR, INFINITE
     }
 
+    @Element(required = false)
     private SessionDuration sessionDuration;
 
+    @Element(required = false)
     private Boolean killOldSessions;
 
     public SessionDuration getSessionDuration() {

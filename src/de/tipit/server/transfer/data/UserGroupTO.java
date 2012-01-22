@@ -1,39 +1,46 @@
 package de.tipit.server.transfer.data;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserGroup")
+@Root(name = "UserGroup")
 public class UserGroupTO extends UserGroupDataTO {
 
-    private static final long serialVersionUID = 2986050412986079405L;
+    @ElementList(required = false)
+    private List<BetCommunityNameTO> betCommunities;
 
-    private BetCommunityNameTO[] betCommunities;
+    @ElementList(required = false)
+    private List<UserNameTO> users;
 
-    private UserNameTO[] users;
-
+    @Element(required = false)
     private UserNameTO founder;
 
-    private UserNameTO[] moderators;
+    @ElementList(required = false)
+    private List<UserNameTO> moderators;
 
+    @Element(required = false)
     private Date foundation;
 
+    @Element(required = false)
     private Date deleted;
 
-    public BetCommunityNameTO[] getBetCommunities() {
+    public List<BetCommunityNameTO> getBetCommunities() {
         return betCommunities;
     }
 
-    public void setBetCommunities(BetCommunityNameTO[] betCommunities) {
+    public void setBetCommunities(List<BetCommunityNameTO> betCommunities) {
         this.betCommunities = betCommunities;
     }
 
-    public UserNameTO[] getUsers() {
+    public List<UserNameTO> getUsers() {
         return users;
     }
 
-    public void setUsers(UserNameTO[] users) {
+    public void setUsers(List<UserNameTO> users) {
         this.users = users;
     }
 
@@ -45,11 +52,11 @@ public class UserGroupTO extends UserGroupDataTO {
         this.founder = founder;
     }
 
-    public UserNameTO[] getModerators() {
+    public List<UserNameTO> getModerators() {
         return moderators;
     }
 
-    public void setModerators(UserNameTO[] moderators) {
+    public void setModerators(List<UserNameTO> moderators) {
         this.moderators = moderators;
     }
 

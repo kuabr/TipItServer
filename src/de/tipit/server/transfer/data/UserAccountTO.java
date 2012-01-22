@@ -1,19 +1,18 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserAccount")
-public class UserAccountTO implements Serializable {
+@Root(name = "UserAccount")
+public class UserAccountTO {
 
-    private static final long serialVersionUID = 3631917949945996427L;
-
+    @Attribute(required = false)
     private String userName;
 
+    @Attribute(required = false)
     private String password;
 
     public static byte[] encryptPassword(String readablePassword) {
@@ -35,15 +34,10 @@ public class UserAccountTO implements Serializable {
         return userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @XmlTransient
     public byte[] getEncryptedPassword() {
         return encryptPassword(password);
     }

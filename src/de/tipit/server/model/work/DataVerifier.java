@@ -2,7 +2,7 @@ package de.tipit.server.model.work;
 
 import javax.persistence.EntityManager;
 
-import de.tipit.server.model.i18n.error.BaseError;
+import de.tipit.server.transfer.access.GeneralError;
 import de.tipit.server.transfer.data.BetCommunityDataArgumentTO;
 import de.tipit.server.transfer.data.ContextTO;
 import de.tipit.server.transfer.data.RuleBookDataTO;
@@ -17,19 +17,19 @@ public class DataVerifier {
         // this.entityManager = entityManager;
     }
 
-    void checkData(ContextTO context, UserDataTO userData) throws BaseError {
+    void checkData(ContextTO context, UserDataTO userData) throws GeneralError {
         // TODO
     }
 
-    void checkData(ContextTO context, UserGroupDataTO userGroupData) throws BaseError {
+    void checkData(ContextTO context, UserGroupDataTO userGroupData) throws GeneralError {
         // TODO
     }
 
-    void checkData(ContextTO context, BetCommunityDataArgumentTO betCommunityData) throws BaseError {
+    void checkData(ContextTO context, BetCommunityDataArgumentTO betCommunityData) throws GeneralError {
         // TODO
     }
 
-    void checkData(ContextTO context, RuleBookDataTO ruleBookData) throws BaseError {
+    void checkData(ContextTO context, RuleBookDataTO ruleBookData) throws GeneralError {
         // TODO
     }
 }

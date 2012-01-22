@@ -1,29 +1,30 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "TeamData")
+@Root(name = "TeamData")
 public class TeamDataTO extends TeamIdTO {
 
-	private static final long serialVersionUID = 5926209431937743305L;
+    @Element(required = false)
+    private String teamAbbrev;
 
-	private String teamAbbrev;
+    @Element(required = false)
+    private String teamName;
 
-	private String teamName;
+    public String getTeamAbbrev() {
+        return teamAbbrev;
+    }
 
-	public String getTeamAbbrev() {
-		return teamAbbrev;
-	}
+    public void setTeamAbbrev(String teamAbbrev) {
+        this.teamAbbrev = teamAbbrev;
+    }
 
-	public void setTeamAbbrev(String teamAbbrev) {
-		this.teamAbbrev = teamAbbrev;
-	}
+    public String getTeamName() {
+        return teamName;
+    }
 
-	public String getTeamName() {
-		return teamName;
-	}
-
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
-	}
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
 }

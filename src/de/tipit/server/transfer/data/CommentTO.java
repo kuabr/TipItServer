@@ -2,23 +2,27 @@ package de.tipit.server.transfer.data;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 import de.tipit.server.transfer.data.ContextTO.Language;
 
-@XmlRootElement(name = "Comment")
+@Root(name = "Comment")
 public class CommentTO extends CommentDataTO {
 
-    private static final long serialVersionUID = 9103472494108150940L;
-
+    @Element(required = false)
     private UserNameTO user;
 
+    @Element(required = false)
     private Language lang;
 
+    @Element(required = false)
     private Date creation;
 
+    @Element(required = false)
     private Date modified;
 
+    @Element(required = false)
     private Date deleted;
 
     public UserNameTO getUser() {

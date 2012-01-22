@@ -1,17 +1,17 @@
 package de.tipit.server.transfer.data;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "Period")
-public class PeriodTO implements Serializable {
+@Root(name = "Period")
+public class PeriodTO {
 
-    private static final long serialVersionUID = -3456176005291103784L;
-
+    @Element(required = false)
     private Date first;
 
+    @Element(required = false)
     private Date last;
 
     public Date getFirst() {

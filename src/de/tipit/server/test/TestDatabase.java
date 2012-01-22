@@ -7,14 +7,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.xml.bind.JAXBException;
 
-import de.tipit.server.model.entity.*;
-import de.tipit.server.transfer.data.*;
+import de.tipit.server.model.entity.UserEO;
+import de.tipit.server.transfer.data.UserAccountTO;
+import de.tipit.server.transfer.data.UserDataTO;
 
 public class TestDatabase {
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAManager");
         EntityManager em = emf.createEntityManager();
 

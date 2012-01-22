@@ -1,12 +1,12 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "UserName")
+@Root(name = "UserName")
 public class UserNameTO extends UserIdTO {
 
-    private static final long serialVersionUID = -7863579071336886253L;
-
+    @Element(required = false)
     private String displayName;
 
     public String getDisplayName() {

@@ -1,16 +1,18 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "GameDataResult")
+@Root(name = "GameDataResult")
 public class GameDataResultTO extends GameDataBaseTO {
 
-    private static final long serialVersionUID = -1173690679897562474L;
-
+    @Element(required = false)
     private MatchDayDescrTO matchDayDescr;
 
+    @Element(required = false)
     private TeamNameTO homeTeamName;
 
+    @Element(required = false)
     private TeamNameTO awayTeamName;
 
     public MatchDayDescrTO getMatchDayDescr() {

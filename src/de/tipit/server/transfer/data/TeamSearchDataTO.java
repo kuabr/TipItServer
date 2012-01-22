@@ -1,29 +1,30 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "TeamSearchData")
+@Root(name = "TeamSearchData")
 public class TeamSearchDataTO extends GeneralSearchData {
 
-	private static final long serialVersionUID = 7445218807085387509L;
+    @Element(required = false)
+    private Boolean searchInAbbreviations;
 
-	private Boolean searchInAbbreviations;
+    @Element(required = false)
+    private Boolean searchInNames;
 
-	private Boolean searchInNames;
+    public Boolean getSearchInAbbreviations() {
+        return searchInAbbreviations;
+    }
 
-	public Boolean getSearchInAbbreviations() {
-		return searchInAbbreviations;
-	}
+    public void setSearchInAbbreviations(Boolean searchInAbbreviations) {
+        this.searchInAbbreviations = searchInAbbreviations;
+    }
 
-	public void setSearchInAbbreviations(Boolean searchInAbbreviations) {
-		this.searchInAbbreviations = searchInAbbreviations;
-	}
+    public Boolean getSearchInNames() {
+        return searchInNames;
+    }
 
-	public Boolean getSearchInNames() {
-		return searchInNames;
-	}
-
-	public void setSearchInNames(Boolean searchInNames) {
-		this.searchInNames = searchInNames;
-	}
+    public void setSearchInNames(Boolean searchInNames) {
+        this.searchInNames = searchInNames;
+    }
 }

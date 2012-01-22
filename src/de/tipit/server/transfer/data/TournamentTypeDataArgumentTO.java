@@ -1,12 +1,12 @@
 package de.tipit.server.transfer.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "TournamentTypeDataArgument")
+@Root(name = "TournamentTypeDataArgument")
 public class TournamentTypeDataArgumentTO extends TournamentTypeDataBaseTO {
 
-    private static final long serialVersionUID = -4444179226063296879L;
-
+    @Element(required = false)
     private SportIdTO sportId;
 
     public SportIdTO getSportId() {
