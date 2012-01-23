@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import de.tipit.server.model.entity.BetCommunityEO;
@@ -106,12 +107,46 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     private final Translator trans;
 
+    private void createTestUser() {
+        UserEO newUser = new UserEO();
+
+        // set user data
+        newUser.setUserName("test");
+        newUser.setEncryptedPasswd(UserAccountTO.encryptPassword("1234"));
+        newUser.setMailAddress("test@tipit.de");
+        newUser.setFullPreName("Fred");
+        newUser.setFullSurName("Hans");
+        newUser.setGender(UserDataTO.Gender.MALE);
+        newUser.setBirthday(new Date());
+        newUser.setAdmin(false);
+        newUser.setGuest(false);
+        newUser.setCreation(new Date());
+
+        // add new user
+        entityManager.persist(newUser);
+        entityManager.flush();
+        entityManager.refresh(newUser);
+    }
+
     public DatabaseManager(final EntityManager entityManager) {
         this.entityManager = entityManager;
         this.sessionManager = new SessionManager(entityManager);
         this.permVerifier = new PermissionVerifier(entityManager);
         this.dataVerifier = new DataVerifier(entityManager);
         this.trans = new Translator();
+
+        // create a user for testing, if the database is empty
+        if (getCount(UserEO.class) == 0L) {
+            EntityTransaction trans = entityManager.getTransaction();
+            trans.begin();
+            try {
+                createTestUser();
+            } catch (RuntimeException exc) {
+                trans.rollback();
+                throw exc;
+            }
+            trans.commit();
+        }
     }
 
     public long getCount(Class<?> eoClass) {
