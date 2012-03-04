@@ -24,7 +24,7 @@ public class TestInvocation {
 
     public static void main(String[] args) throws Exception {
         EntityManager emgr = Persistence.createEntityManagerFactory("JPAManager").createEntityManager();
-        UserSession dbm = (UserSession) TransactionProxy.newInstance(new DatabaseManager(emgr), emgr);
+        UserSession dbm = (UserSession) TransactionProxy.newInstance(DatabaseManager.createInstance(emgr), emgr);
         Serializer serializer = new Persister();
 
         ContextTO context = new ContextTO();

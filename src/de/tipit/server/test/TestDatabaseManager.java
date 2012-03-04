@@ -31,7 +31,7 @@ public class TestDatabaseManager {
 
     public TestDatabaseManager() {
         this.emgr = Persistence.createEntityManagerFactory("JPAManager").createEntityManager();
-        this.dbm = new DatabaseManager(emgr);
+        this.dbm = DatabaseManager.createInstance(emgr);
     }
 
     public void printDatabase() {

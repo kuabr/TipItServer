@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import de.tipit.server.model.data.EM_2012;
+import de.tipit.server.model.data.TestUser;
 import de.tipit.server.model.entity.BetCommunityEO;
 import de.tipit.server.model.entity.RuleBookEO;
 import de.tipit.server.model.entity.SessionEO;
@@ -107,46 +109,31 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     private final Translator trans;
 
-    private void createTestUser() {
-        UserEO newUser = new UserEO();
-
-        // set user data
-        newUser.setUserName("test");
-        newUser.setEncryptedPasswd(UserAccountTO.encryptPassword("1234"));
-        newUser.setMailAddress("test@tipit.de");
-        newUser.setFullPreName("Fred");
-        newUser.setFullSurName("Hans");
-        newUser.setGender(UserDataTO.Gender.MALE);
-        newUser.setBirthday(new Date());
-        newUser.setAdmin(false);
-        newUser.setGuest(false);
-        newUser.setCreation(new Date());
-
-        // add new user
-        entityManager.persist(newUser);
-        entityManager.flush();
-        entityManager.refresh(newUser);
-    }
-
-    public DatabaseManager(final EntityManager entityManager) {
+    private DatabaseManager(final EntityManager entityManager, final DatabaseCharger... chargers) {
         this.entityManager = entityManager;
         this.sessionManager = new SessionManager(entityManager);
         this.permVerifier = new PermissionVerifier(entityManager);
         this.dataVerifier = new DataVerifier(entityManager);
         this.trans = new Translator();
 
-        // create a user for testing, if the database is empty
+        // create initial data, if the database is empty
         if (getCount(UserEO.class) == 0L) {
             EntityTransaction trans = entityManager.getTransaction();
             trans.begin();
             try {
-                createTestUser();
+                for (int i = 0; i < chargers.length; i++) {
+                    chargers[i].add(this.entityManager);
+                }
             } catch (RuntimeException exc) {
                 trans.rollback();
                 throw exc;
             }
             trans.commit();
         }
+    }
+
+    public static DatabaseManager createInstance(final EntityManager entityManager) {
+        return new DatabaseManager(entityManager, new TestUser(), new EM_2012());
     }
 
     public long getCount(Class<?> eoClass) {
@@ -268,7 +255,7 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     @Override
     public SessionTO doLoginAsGuest(ContextTO context) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
@@ -340,130 +327,130 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     @Override
     public Void updateUser(ContextTO context, SessionIdTO sessionId, UserDataTO userData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void resetPassword(ContextTO context, UserContactTO userContact) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void setInactive(ContextTO context, SessionIdTO sessionId, Boolean isInactive) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void setDisabled(ContextTO context, SessionIdTO sessionId, UserIdTO userId, Boolean isDisabled) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public UserTO readOwnUser(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public UserTO readUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentDescrTO> getModeratedTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentDescrTO> getOwnTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserNameTO> findUsers(ContextTO context, SessionIdTO sessionId, UserSearchDataTO userSearchData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TournamentIdTO createOrUpdateTournament(ContextTO context, SessionIdTO sessionId, TournamentDataArgumentTO tournData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Boolean isTournamentModerator(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addModeratorToTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeModeratorFromTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, UserIdTO modId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TournamentRoundIdTO createOrUpdateTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundDataArgumentTO tournRoundData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteTournamentRound(ContextTO context, SessionIdTO sessionId, TournamentRoundIdTO tournRoundId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public MatchDayIdTO createOrUpdateMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayDataArgumentTO matchDayData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteMatchDay(ContextTO context, SessionIdTO sessionId, MatchDayIdTO matchDayId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public GameIdTO createOrUpdateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteGame(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<RuleBookNameTO> findRuleBooks(ContextTO context, SessionIdTO sessionId, RuleBookSearchDataTO ruleBookSearchData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<RuleBookNameTO> getNotFinalRuleBooks(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<RuleBookNameTO> getOwnRuleBooks(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Integer calculatePointsForStoredRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId, Integer homeResult, Integer awayResult,
             Integer averageHomeResultBet, Integer averageAwayResultBet, Integer homeResultBet, Integer awayResultBet) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Integer calculatePointsForNewRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookDataTO ruleBookData, Integer homeResult, Integer awayResult,
             Integer averageHomeResultBet, Integer averageAwayResultBet, Integer homeResultBet, Integer awayResultBet) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
@@ -553,163 +540,163 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     @Override
     public Void deleteRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<SportNameTO> getSports(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentTypeNameTO> findTournamentTypes(ContextTO context, SessionIdTO sessionId, TournamentTypeSearchDataTO tournTypeSearchData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TeamNameTO> findTeams(ContextTO context, SessionIdTO sessionId, TeamSearchDataTO teamSearchData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentTypeNameTO> getTournamentTypesForTeams(ContextTO context, SessionIdTO sessionId, List<TeamIdTO> teamIdList) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TeamNameTO> getTeamsForTournamentTypes(ContextTO context, SessionIdTO sessionId, List<TournamentTypeIdTO> tournTypeIdList) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public SportTO readSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TournamentTypeTO readTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TeamTO readTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public SportIdTO createOrUpdateSport(ContextTO context, SessionIdTO sessionId, SportDataTO sportData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteSport(ContextTO context, SessionIdTO sessionId, SportIdTO sportId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TournamentTypeIdTO createOrUpdateTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeDataArgumentTO tournTypeData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TeamIdTO createOrUpdateTeam(ContextTO context, SessionIdTO sessionId, TeamDataTO teamData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void deleteTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addAllowedTournamentTypesToTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, List<TournamentTypeIdTO> tournTypeIdList)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeAllowedTournamentTypesFromTeam(ContextTO context, SessionIdTO sessionId, TeamIdTO teamId, List<TournamentTypeIdTO> tournTypeIdList)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addAllowedTeamsToTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, List<TeamIdTO> teamIdList)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeAllowedTeamsFromTournamentType(ContextTO context, SessionIdTO sessionId, TournamentTypeIdTO tournTypeId, List<TeamIdTO> teamIdList)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<BetCommunityNameTO> getBetCommunitiesForUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<BetCommunityNameTO> getBetCommunitiesForUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<BetCommunityNameTO> getModeratingBetCommunities(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Boolean isBetCommunityModerator(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupNameTO> findUserGroups(ContextTO context, SessionIdTO sessionId, UserGroupSearchDataTO userGroupSearchData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupNameTO> getUserGroupsForUser(ContextTO context, SessionIdTO sessionId, UserIdTO userId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupNameTO> getParticipatingUserGroups(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupNameTO> getModeratingUserGroups(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Boolean isUserGroupModerator(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<RuleBookNameTO> getAllFinalRuleBooks(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public UserGroupTO readUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public RuleBookTO readRuleBook(ContextTO context, SessionIdTO sessionId, RuleBookIdTO ruleBookId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
@@ -786,41 +773,41 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     @Override
     public Void deleteBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addUserGroupToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserGroupIdTO userGroupId)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeUserGroupFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserGroupIdTO userGroupId)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addTournamentToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeTournamentFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addModeratorToBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserIdTO modId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeModeratorFromBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, UserIdTO modId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
@@ -884,285 +871,285 @@ public class DatabaseManager implements Analysis, BetResult, CommunityAdmin, Met
 
     @Override
     public Void deleteUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addUserToUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO userId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeUserFromUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO userId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void joinUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void leaveUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void addModeratorToUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO modId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeModeratorFromUserGroup(ContextTO context, SessionIdTO sessionId, UserGroupIdTO userGroupId, UserIdTO modId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentDescrTO> getOpenParticipatingTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentDescrTO> getAllOpenTournaments(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Boolean hasMissingWinnerBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<WinnerBetTO> getWinnerBetsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TeamNameTO> getTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameDataResultTO> getGamesWithMissingBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameTO> getGamesWithPopulatedBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameTO> getGamesWithForgottenBetForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameDataResultTO> getGamesWithMissingResultForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameTO> getGamesWithPopulatedResultForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameDataResultTO> getGamesWithMissingBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameTO> getGamesWithPopulatedBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameTO> getGamesWithForgottenBetForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameDataResultTO> getGamesWithMissingResultForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameTO> getGamesWithPopulatedResultForPeriod(ContextTO context, SessionIdTO sessionId, PeriodTO period) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void setWinnerBet(ContextTO context, SessionIdTO sessionId, WinnerBetDataArgumentTO winnerBetData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void setGameBet(ContextTO context, SessionIdTO sessionId, GameBetDataWithoutGameTO gameBetData, GameIdTO gameId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void setWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, TeamIdTO winnerTeamId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void delWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void setGameResult(ContextTO context, SessionIdTO sessionId, GameResultDataTO gameResultData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void delGameResult(ContextTO context, SessionIdTO sessionId, GameIdTO gameId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForWinnerBet(ContextTO context, SessionIdTO sessionId, WinnerBetIdTO winnerBetId, CommentDataTO commentData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForWinnerTeam(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId, CommentDataTO commentData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForGameBet(ContextTO context, SessionIdTO sessionId, GameBetIdTO gameBetId, CommentDataTO commentData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public CommentIdTO createOrUpdateCommentForGameResult(ContextTO context, SessionIdTO sessionId, GameIdTO gameId, CommentDataTO commentData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeCommentForWinnerBet(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeCommentForWinnerTeam(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeCommentForGameBet(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void removeCommentForGameResult(ContextTO context, SessionIdTO sessionId, CommentIdTO commentId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameDataResultTO> getGamesWithMissingTeamsForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public Void updateGame(ContextTO context, SessionIdTO sessionId, GameDataArgumentTO gameData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<BetCommunityNameTO> findBetCommunities(ContextTO context, SessionIdTO sessionId, BetCommunitySearchDataTO betCommunitySearchData)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<BetCommunityNameTO> getParticipatingBetCommunities(ContextTO context, SessionIdTO sessionId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public BetCommunityTO readBetCommunity(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<TournamentDescrTO> findTournaments(ContextTO context, SessionIdTO sessionId, TournamentSearchDataTO tournSearchData) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public TournamentTO readTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameDataResultTO> getGamesForTournament(ContextTO context, SessionIdTO sessionId, TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameWithPointsTO> getGamesWithPointsByTournament(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
             TournamentIdTO tournId, Boolean onlyGamesWithResult) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<GameWithPointsTO> getGamesWithPointsByPeriod(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, PeriodTO period,
             Boolean onlyGamesWithResult) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserPointsTO> getTournamentRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, TournamentIdTO tournId,
             Boolean onlyUsersWithBet) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupPointsTO> getTournamentRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
             TournamentIdTO tournId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserPointsTO> getTournamentRoundRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
             TournamentRoundIdTO tournRoundId, Boolean onlyUsersWithBet) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupPointsTO> getTournamentRoundRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
             TournamentRoundIdTO tournRoundId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserPointsTO> getMatchDayRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, MatchDayIdTO matchDayId,
             Boolean onlyUsersWithBet) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupPointsTO> getMatchDayRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId,
             MatchDayIdTO matchDayId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserPointsTO> getAllTimeRankingByUser(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId, Boolean onlyUsersWithBet)
             throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 
     @Override
     public List<UserGroupPointsTO> getAllTimeRankingByUserGroup(ContextTO context, SessionIdTO sessionId, BetCommunityIdTO betCommunityId) throws GeneralError {
-        throw new NotYetImplemented(context); // TODO
+        throw new NotYetImplemented(context);
     }
 }
