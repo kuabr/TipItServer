@@ -18,12 +18,15 @@ import org.simpleframework.xml.core.Persister;
 import de.tipit.server.model.work.DatabaseManager;
 import de.tipit.server.model.work.TransactionProxy;
 import de.tipit.server.transfer.access.InvocationResult;
+import de.tipit.xml.Matcher;
 
 /**
  * Base servlet implementation.
  */
 @SuppressWarnings("serial")
 public abstract class BaseServlet<SESSION_T> extends HttpServlet {
+
+    protected static final Matcher matcher = new Matcher();
 
     protected static final String DATA_PARAMETER_NAME = "data";
 
@@ -68,10 +71,12 @@ public abstract class BaseServlet<SESSION_T> extends HttpServlet {
             }
         }
         String text = data.toString();
+        System.out.println("*** read request ***");
         System.out.println(text);
+        System.out.println("--------------------");
 
         // create invocation object and execute it
-        Serializer serializer = new Persister();
+        Serializer serializer = new Persister(BaseServlet.matcher);
         InvocationResult result;
         try {
             result = this.executeData(serializer, text);
@@ -87,6 +92,9 @@ public abstract class BaseServlet<SESSION_T> extends HttpServlet {
             return; // leave method due to error
         }
         String resultText = resultOut.toString("UTF-8");
+        System.out.println("*** write answer ***");
+        System.out.println(resultText);
+        System.out.println("--------------------");
 
         // add result in response
         response.setContentType("text/xml");
